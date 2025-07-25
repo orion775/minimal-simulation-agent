@@ -1,9 +1,10 @@
 {
-  "diagnosis": "The current guide price exceeds buyer tolerance based on local liquidity compression.",
+  "diagnosis": "The core issue with the underperforming listing of the \u00a33.8M penthouse in Mayfair is likely a misalignment between the listing price and market demand, resulting in low viewing activity despite the property's desirable location and features.",
   "strategic_actions": [
-    "Reposition guide to \u00a34.25M",
-    "Switch to performance-led agent within 14 days",
-    "Reframe marketing with withdrawn comp narrative"
+    "Conduct a thorough market analysis to reassess the pricing strategy. Consider adjusting the listing price closer to market value to attract more potential buyers.",
+    "Enhance the property's online presence by investing in professional photography, virtual tours, and targeted digital marketing campaigns to increase visibility and generate more interest."
   ],
-  "simulation_score": 0.7
+  "forecast": "If the recommended actions are taken, the probability of securing at least one serious offer within 45 days is high. By aligning the pricing with market expectations and improving the property's marketing strategy, the chances of attracting qualified buyers are significantly increased.",
+  "commentary": "It's crucial for the seller and agent to be open to feedback and willing to make necessary adjustments to achieve the desired outcome. Effective communication and collaboration are key in addressing the challenges faced in selling luxury properties.",
+  "simulation_score": 0.65
 }

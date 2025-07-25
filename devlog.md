@@ -1,10 +1,29 @@
 # Devlog
 
-
-
 ---
-# Devlog
+## v1.2.0 — 2025-07-25
 
+### Added
+- Centralized `domain_context` for global domain management (set once in `main.py`)
+- Full domain profile system via `domain_profiles.py`
+  - Swappable prompts, validation, and GPT instructions per domain
+  - Domain-aware GPT rejection: returns error message if input is off-topic
+- Replaced GPT-provided simulation score with internal scoring logic
+  - `calculate_simulation_score()` uses urgency, constraint flexibility, and goal/constraint conflict
+  - Works across all domains, no property-specific logic
+- Always exports to `simulation_output.json` (no flag needed)
+
+### Changed
+- Refactored `prompt_builder`, `openai_client`, and `simulation_engine` to use global `domain_context`
+- Removed all `domain=` kwargs from function signatures
+- Improved robustness of `calculate_simulation_score()` (handles None inputs)
+
+### Fixed
+- Crash on `.strip()` when scenario/goal/constraint were missing
+- GPT score no longer silently overrides user scoring logic
+
+### Notes
+- Current domain: `real_estate`
 ---
 
 ## v1.1.0 — 2025-07-24
