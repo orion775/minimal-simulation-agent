@@ -1,4 +1,29 @@
 # Devlog
+---
+# Devlog
+
+## v1.3.0 — 2025-07-25
+
+### Added
+- New `science` domain profile with strict GPT-based rejection for off-topic input
+- Domain-specific prompt enforcement and fallback to general scoring
+- Automatic memo generation (`simulation_memo.md`) is now always triggered
+- `ideas.md` file created to document system modularity and future roadmap
+- Domain passed explicitly to `query_openai_gpt()` to avoid silent overrides
+
+### Changed
+- Removed hardcoded domain fallback in `main.py` to respect pre-set `domain_context`
+- Upgraded system prompts to enforce stricter domain discipline
+- Improved messaging for domain-related errors (`[DOMAIN ERROR]`)
+
+### Fixed
+- Bug where GPT always used "real_estate" due to default argument in `query_openai_gpt()`
+- Memo header formatting cleaned up to prevent malformed output
+
+### Notes
+- Engine now correctly blocks unrelated inputs based on active domain
+- Domain switching works interactively or via CLI (`--domain science`)
+- Next steps: add input validators, automated test suite, and auto-tagging of domains
 
 ---
 ## v1.2.0 — 2025-07-25
@@ -24,6 +49,7 @@
 
 ### Notes
 - Current domain: `real_estate`
+
 ---
 
 ## v1.1.0 — 2025-07-24

@@ -3,11 +3,10 @@ from modules.simulation_engine import simulate_gpt_response
 from modules.output_formatter import pretty_print_simulation_output
 from modules.version import get_version
 from modules.markdown_exporter import export_simulation_to_markdown
+from modules.memo_generator import export_simulation_memo
 from modules.context import domain_context
 import json
 import argparse
-
-from modules.context import domain_context
 
 def get_user_input():
     parser = argparse.ArgumentParser(description="Minimal Simulation Agent")
@@ -18,6 +17,7 @@ def get_user_input():
     parser.add_argument("--domain", type=str, help="Domain profile to use")
     parser.add_argument("--export-json", action="store_true", help="Export output to a JSON file")
     parser.add_argument("--export-md", action="store_true", help="Export output to a Markdown file")
+    parser.add_argument("--export-memo", action="store_true", help="Export memo report to Markdown")
     args = parser.parse_args()
 
     # Fallback to interactive input
@@ -25,23 +25,22 @@ def get_user_input():
     goal = args.goal or input("Enter goal: ")
     constraint = args.constraint or input("Enter constraint: ")
 
-    # Set domain: CLI > existing context > fallback
+    # Only update domain if explicitly passed in
     if args.domain:
         domain_context["active_domain"] = args.domain
-    elif not domain_context.get("active_domain"):
-        domain_context["active_domain"] = "real_estate"
 
     return {
         "scenario": scenario,
         "goal": goal,
         "constraint": constraint,
+        "domain": args.domain,
         "export_json": args.export_json,
         "export_md": args.export_md,
+        "export_memo": args.export_memo,
     }
 
 def main():
     user_data = get_user_input()
-    domain_context["active_domain"] = user_data.get("domain", "real_estate")
 
     prompt = build_prompt(
         user_data["scenario"],
@@ -66,6 +65,11 @@ def main():
     if user_data.get("export_md"):
         export_simulation_to_markdown(response)
         print("Simulation output saved to simulation_output.md")
+
+    # Always export memo
+    scenario_text = f"{user_data['scenario']} Goal: {user_data['goal']}. Constraint: {user_data['constraint']}."
+    export_simulation_memo(response, scenario_text=scenario_text)
+    print("Simulation memo saved to simulation_memo.md")
 
 if __name__ == "__main__":
     main()

@@ -9,7 +9,9 @@ def calculate_simulation_score(scenario, goal, constraint):
     - Constraint rigidity
     - Conflict between goal and constraint
     """
-
+    scenario = scenario or ""
+    goal = goal or ""
+    constraint = constraint or ""
     score = 0.5
 
     # 1. Scenario richness (longer = more realistic / more context)
