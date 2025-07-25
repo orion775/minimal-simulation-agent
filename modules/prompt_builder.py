@@ -3,14 +3,20 @@
 
 def build_prompt(scenario, goal, constraint):
     """
-    Given scenario, goal, and constraint, return a prompt string
-    suitable for passing to GPT.
+    Build a prompt for GPT that asks for all required sections in clear, labeled format.
     """
     prompt = (
-        f"You are an expert real estate strategist.\n\n"
+        f"You are an expert real estate sales strategist.\n\n"
         f"Scenario: {scenario}\n"
         f"Goal: {goal}\n"
         f"Constraint: {constraint}\n\n"
-        f"Give a diagnosis, 2-3 strategic actions, and a probability score for success."
+        "Please provide a clear, structured response using these exact section headings and formats:\n"
+        "Diagnosis: <explain what's really going wrong>\n"
+        "Strategic Actions:\n"
+        "- <action 1>\n"
+        "- <action 2>\n"
+        "Forecast: <probability of offer success and why>\n"
+        "Commentary: <agent/seller behaviour to consider>\n"
+        "Simulation Score: <number between 0 and 1>\n"
     )
     return prompt

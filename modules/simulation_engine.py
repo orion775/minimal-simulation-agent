@@ -3,19 +3,19 @@
 from modules.scorer import calculate_simulation_score
 
 def simulate_gpt_response(prompt, scenario=None, goal=None, constraint=None):
-    """
-    Simulates an LLM response. Returns structured dict as if from GPT.
-    Uses the scorer module.
-    """
-    score = calculate_simulation_score(
-        scenario or "", goal or "", constraint or ""
-    )
-    return {
-        "diagnosis": "The current guide price exceeds buyer tolerance based on local liquidity compression.",
-        "strategic_actions": [
-            "Reposition guide to £4.25M",
-            "Switch to performance-led agent within 14 days",
-            "Reframe marketing with withdrawn comp narrative"
-        ],
-        "simulation_score": score
-    }
+    try:
+        from modules.openai_client import query_openai_gpt
+        from modules.gpt_parser import parse_gpt_output
+
+        gpt_output = query_openai_gpt(prompt)
+        print("\n[DEBUG] GPT RAW OUTPUT:\n", gpt_output)
+        parsed = parse_gpt_output(gpt_output)
+        required = ["diagnosis", "strategic_actions", "forecast", "commentary", "simulation_score"]
+        if not all(parsed.get(key) for key in required):
+            raise ValueError("GPT response missing one or more required fields.")
+        return parsed
+
+    except Exception as e:
+        print("Error: Could not get a valid GPT response.")
+        print(e)
+        exit(1)
